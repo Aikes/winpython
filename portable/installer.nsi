@@ -74,7 +74,7 @@ SectionEnd
 ;------------------------------------------------------------------------------
 Function .onInit
     ; Check if an instance of this installer is already running
-    System::Call 'kernel32::CreateMutexA(i 0, i 0, t "${ID}") i .r1 ?e'
+    System::Call 'kernel32::CreateMutex(i 0, i 0, t "${ID}") i .r1 ?e'
     Pop $R0
     StrCmp $R0 0 +3
         MessageBox MB_OK|MB_ICONEXCLAMATION "Installer is already running."

@@ -92,14 +92,14 @@ workdir:
 SetOutPath "${WORKDIR}"
 end_workdir:
 
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("WINPYDIR", "${WINPYDIR}").r0'
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("WINPYVER", "${WINPYVER}").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("WINPYDIR", "${WINPYDIR}").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("WINPYVER", "${WINPYVER}").r0'
 
 ; Addition of R_HOME Environment Variable if %R_Home%\bin exists
 StrCmp "${R_HOME}" "" end_Rsettings
 IfFileExists "${R_HOME}\bin\*.*" 0 end_Rsettings
 
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("R_HOME", "${R_HOME}").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("R_HOME", "${R_HOME}").r0'
 
 end_Rsettings:
 
@@ -107,36 +107,36 @@ end_Rsettings:
 StrCmp "${JULIA}" "" end_Julia_settings
 IfFileExists "${JULIA}" 0 end_Julia_settings
 
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("JULIA", "${JULIA}").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("JULIA", "${JULIA}").r0'
 
 StrCmp "${JULIA_HOME}" "" end_Julia_settings
 IfFileExists "${JULIA_HOME}\*.*" 0 end_Julia_settings
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("JULIA_HOME", "${JULIA_HOME}").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("JULIA_HOME", "${JULIA_HOME}").r0'
 
 ;  Addition for JULIA_PKGDIR
 StrCmp "${JULIA_PKGDIR}" "" end_Julia_settings
 IfFileExists "${JULIA_PKGDIR}\*.*" 0 end_Julia_settings
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("JULIA_PKGDIR", "${JULIA_PKGDIR}").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("JULIA_PKGDIR", "${JULIA_PKGDIR}").r0'
 
 end_Julia_settings:
 
 
 ;  Addition for QT_API=pyqt5 if Qt5 detected
 IfFileExists "${WINPYDIR}\Lib\site-packages\PyQt5\*.*" 0 end_QT_API_settings
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("QT_API", "pyqt5").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("QT_API", "pyqt5").r0'
 
 end_QT_API_settings:
 
 ; jupyter
 StrCmp "${JUPYTER_DATA_DIR}" "" end_jupyter_data_setting
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("JUPYTER_DATA_DIR", "${JUPYTER_DATA_DIR}").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("JUPYTER_DATA_DIR", "${JUPYTER_DATA_DIR}").r0'
 
 end_jupyter_data_setting:
 
 ;================================================================
 ; Settings directory
 IfFileExists "$EXEDIR\settings\*.*" 0 end_settings
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("HOME", "$EXEDIR\settings").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("HOME", "$EXEDIR\settings").r0'
 StrCmp "${SETTINGSDIR}" "" end_settings
 CreateDirectory "$EXEDIR\settings\${SETTINGSDIR}"
 ; Handle portability in Spyder's settings
@@ -180,7 +180,7 @@ ReadINIStr $R7 $R6 "debug" "state"
 StrCmp $R7 "" no_debug
 StrCmp $R7 "disabled" no_debug
 StrCpy $R7 "enabled"
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("WINPYDEBUG", "True").r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("WINPYDEBUG", "True").r0'
 no_debug:
 
 
@@ -198,7 +198,7 @@ envvar_loop:
 
     ${StrFilter} $1 "+" "" " " $1 ; Upper case + remove trailing spaces
     StrCmp $1 "PATH" found_path
-    System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("$1", "$2").r0'
+    System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("$1", "$2").r0'
     Goto end_found_path
 
     found_path:
@@ -212,7 +212,7 @@ envvar_loop:
 envvar_done:
 
 StrCpy $R0 "${PREPATH};$R0;${POSTPATH}"
-System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("PATH", R0).r0'
+System::Call 'Kernel32::SetEnvironmentVariable(t, t) i("PATH", R0).r0'
 ;================================================================
 
 
