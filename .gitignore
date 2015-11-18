@@ -1,5 +1,5 @@
-.pyc
-.pyo
+*.pyc
+*.pyo
 .exe
 .settings
 .spyderproject
@@ -19,3 +19,5 @@ MANIFEST
 Thumbs.db
 *~
 *.swp
+.gitignore
+basedir*/
