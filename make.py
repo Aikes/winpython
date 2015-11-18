@@ -39,7 +39,7 @@ def get_nsis_exe():
     """Return NSIS executable"""
     localdir = osp.join(sys.prefix, os.pardir, os.pardir)
     for drive in get_drives():
-        for dirname in (r'C:\Program Files', r'C:\Program Files (x86)',
+        for dirname in (r'C:\Program Files', r'C:\Program Files (x86)',r'C:\Users\user\Desktop\NSISPortable',
                         drive+r'PortableApps\NSISPortableANSI',
                         drive+r'PortableApps\NSISPortable',
                         osp.join(localdir, 'NSISPortableANSI'),
@@ -517,26 +517,26 @@ call %~dp0env.bat
     def _create_launchers(self):
         """Create launchers"""
         self._print("Creating launchers")
-        self.create_launcher('WinPython Command Prompt.exe', 'cmd.ico',
+        self.create_launcher('Python{0}Portable.exe'.format(self.python_version), 'cmd.ico',
                              command='$SYSDIR\cmd.exe',
                              args='/k', workdir='${WINPYDIR}')
-        self.create_launcher('WinPython Interpreter.exe', 'python.ico')
-        self.create_launcher('IDLE (Python GUI).exe', 'python.ico',
+        self.create_launcher('Python{0}InterpreterPortable.exe'.format(self.python_version), 'python.ico')
+        self.create_launcher('IDLE{0}Portable.exe'.format(self.python_version), 'python.ico',
                              args='idle.pyw',
                              workdir='${WINPYDIR}\Lib\idlelib')
         settingspath = osp.join('.spyder2', '.spyder.ini')
-        self.create_launcher('Spyder.exe', 'spyder.ico',
+        self.create_launcher('Spyder{0}Portable.exe'.format(self.python_version), 'spyder.ico',
                              command='${WINPYDIR}\python.exe',
                              args='-m spyderlib.start_app',
                              workdir='${WINPYDIR}\Scripts',
                              settingspath=settingspath)
-        self.create_launcher('Spyder (light).exe', 'spyder_light.ico',
+        self.create_launcher('SpyderLight{0}Portable.exe'.format(self.python_version), 'spyder_light.ico',
                              command='${WINPYDIR}\python.exe',
                              args='-m spyderlib.start_app --light',
                              workdir='${WINPYDIR}\Scripts',
                              settingspath=settingspath)
 
-        self.create_launcher('WinPython Control Panel.exe', 'winpython.ico',
+        self.create_launcher('Python{0}ControlPanelPortable.exe'.format(self.python_version), 'winpython.ico',
                              command='${WINPYDIR}\pythonw.exe',
                              args='-m winpython.controlpanel',
                              workdir='${WINPYDIR}\Scripts')
@@ -548,7 +548,7 @@ call %~dp0env.bat
         Qt4_dir = r'${WINPYDIR}\Lib\site-packages\PyQt4'
         Qt5_dir = r'${WINPYDIR}\Lib\site-packages\PyQt5'
 
-        self.create_launcher('Qt Demo.exe', 'qt.ico',
+        self.create_launcher('QtDemo{0}Portable.exe'.format(self.python_version), 'qt.ico',
                              command=r'${WINPYDIR}\pythonw.exe',
                              args='qtdemo.pyw',
                              workdir=Qt4_dir+r'\examples\%s' % r'demos\qtdemo',
@@ -556,49 +556,49 @@ call %~dp0env.bat
                              betterargs='qtdemo.py',
                              betterworkdir=Qt5_dir+r'\examples\%s' % r'qtdemo')
 
-        self.create_launcher('Qt Assistant.exe', 'qtassistant.ico',
+        self.create_launcher('QtAssistant{0}Portable.exe'.format(self.python_version), 'qtassistant.ico',
                              command=Qt4_dir + r'\assistant.exe',
                              workdir=r'${WINPYDIR}',
                              bettercommand=Qt5_dir + r'\assistant.exe')
-        self.create_launcher('Qt Designer.exe', 'qtdesigner.ico',
+        self.create_launcher('QtDesigner{0}Portable.exe'.format(self.python_version), 'qtdesigner.ico',
                              command=Qt4_dir + r'\designer.exe',
                              workdir=r'${WINPYDIR}',
                              bettercommand=Qt5_dir + r'\designer.exe')
-        self.create_launcher('Qt Linguist.exe', 'qtlinguist.ico',
+        self.create_launcher('QtLinguist{0}Portable.exe'.format(self.python_version), 'qtlinguist.ico',
                              command=(Qt4_dir + r'\linguist.exe'),
                              workdir=r'${WINPYDIR}',
                              bettercommand=Qt5_dir + r'\linguist.exe')
 
         # Jupyter launchers
-        if osp.isfile(osp.join(self.python_dir, 'Scripts', 'jupyter.exe')):
-            self.create_launcher('IPython Qt Console.exe', 'ipython.ico',
-                                 command='${WINPYDIR}\Scripts\%s' %
-                                         'jupyter-qtconsole.exe',
-                                 workdir=r'${WINPYDIR}\..\notebooks')
+        #if osp.isfile(osp.join(self.python_dir, 'Scripts', 'jupyter.exe')):
+        self.create_launcher('IPython{0}QtConsolePortable.exe'.format(self.python_version), 'ipython.ico',
+                             command='${WINPYDIR}\Scripts\%s' %
+                                     'jupyter-qtconsole.exe',
+                             workdir=r'${WINPYDIR}\..\notebooks')
 
-            self.create_launcher('Jupyter Notebook.exe', 'jupyter.ico',
-                                 command='${WINPYDIR}\Scripts\%s' %
-                                         'jupyter-notebook.exe',
-                                 workdir=r'${WINPYDIR}\..\notebooks')
+        self.create_launcher('Jupyter{0}NotebookPortable.exe'.format(self.python_version), 'jupyter.ico',
+                             command='${WINPYDIR}\Scripts\%s' %
+                                     'jupyter-notebook.exe',
+                             workdir=r'${WINPYDIR}\..\notebooks')
 
         # R console launchers
         r_exe = self.R_PATH + r"\i386\R.exe"
-        if osp.isfile(self.winpydir + r_exe):
-            self.create_launcher('R Console32.exe', 'r.ico',
-                                 command='${WINPYDIR}\..' + r_exe,
-                                 workdir=r'${WINPYDIR}\..\notebooks')
+        #if osp.isfile(self.winpydir + r_exe):
+        self.create_launcher('R{0}Console32Portable.exe'.format(self.python_version), 'r.ico',
+                             command='${WINPYDIR}\..' + r_exe,
+                             workdir=r'${WINPYDIR}\..\notebooks')
         r_exe = self.R_PATH + r"\x64\R.exe"
-        if osp.isfile(self.winpydir + r_exe):
-            self.create_launcher('R Console64.exe', 'r.ico',
-                                 command='${WINPYDIR}\..' + r_exe,
-                                 workdir=r'${WINPYDIR}\..\notebooks')
+        #if osp.isfile(self.winpydir + r_exe):
+        self.create_launcher('R{0}Console64Portable.exe'.format(self.python_version), 'r.ico',
+                             command='${WINPYDIR}\..' + r_exe,
+                             workdir=r'${WINPYDIR}\..\notebooks')
 
         # Julia console launcher
         julia_exe   =  self.JULIA_PATH + r"\julia.exe"
-        if osp.isfile(self.winpydir + julia_exe):
-            self.create_launcher('Julia Console.exe', 'julia.ico',
-                                 command='${WINPYDIR}\..'+ julia_exe,
-                                 workdir=r'${WINPYDIR}\..\notebooks')
+        #if osp.isfile(self.winpydir + julia_exe):
+        self.create_launcher('Julia{0}ConsolePortable.exe'.format(self.python_version), 'julia.ico',
+                             command='${WINPYDIR}\..'+ julia_exe,
+                             workdir=r'${WINPYDIR}\..\notebooks')
 
         self._print_done()
 
@@ -768,8 +768,9 @@ cd %WINPYDIR%\Scripts
         if self.simulation:
             print("WARNING: this is just a simulation!", file=sys.stderr)
 
-        self.python_fname = self.get_package_fname(
-                            r'python-([0-9\.rc]*)((\.|\-)amd64)?\.(msi|zip)')
+        #self.python_fname = self.get_package_fname(
+        #                    r'python-([0-9\.rc]*)((\.|\-)amd64)?\.(msi|zip)')
+        self.python_fname = 'python-3.5.0.msi'
         self.python_name = osp.basename(self.python_fname)[:-4]
         distname = 'win%s' % self.python_name
         vlst = re.match(r'winpython-([0-9\.]*)', distname
@@ -793,7 +794,17 @@ cd %WINPYDIR%\Scripts
             #  is creating the directory automatically)
             os.mkdir(osp.join(self.winpydir, 'settings'))
         self._print_done()
-
+        
+        self.python_name='App'
+        self.python_version='2.7'
+        self.python_fullversion='2.7.10'
+        self.distribution=wppm.BasePackage('32')
+        self.distribution.architecture=32
+        self._create_batch_scripts_initial()
+        self._create_batch_scripts()  # which set mingwpy as compiler
+        #self._run_complement_batch_scripts("run_required_first.bat")
+        self._create_launchers()
+        
         if remove_existing and not self.simulation:
             self._extract_python()
         self.distribution = wppm.Distribution(self.python_dir,
@@ -1005,7 +1016,7 @@ def make_all(build_number, release_level, pyver,
             install_options = install_options.split()
         print('install_options', install_options)
     basedir = utils.get_basedir(pyver, rootdir=rootdir)
-    rebuild_winpython(basedir=basedir, archis=archis)
+    #rebuild_winpython(basedir=basedir, archis=archis)
     for architecture in archis:
         make_winpython(build_number, release_level, architecture, basedir,
                        verbose, remove_existing, create_installer, simulation,
@@ -1025,12 +1036,12 @@ if __name__ == '__main__':
     #         install_options=r'--no-index --pre --trusted-host=None',
     #         find_links=r'D:\Winpython\basedir34\packages.srcreq')
 
-    make_all(1, release_level='build3', pyver='3.5', rootdir=r'D:\Winpython', verbose=True,
-             archis=(64, ), flavor='Slim',
+    make_all(99, release_level='', pyver='2.7', rootdir=r'D:\Winpython', verbose=True,
+             archis=(32, ), flavor='Portable',
              requirements=r'D:\Winpython\basedir35\slim_requirements.txt',
              install_options=r'--no-index --pre --trusted-host=None',
              find_links=r'D:\Winpython\basedir34\packages.srcreq',
              source_dirs=r'D:\WinPython\basedir34\packages.src D:\WinPython\basedir35\packages.win-amd64',
              toolsdirs=r'D:\WinPython\basedir34\Tools.Slim',
-             docsdirs=r'D:\WinPython\basedir34\docs.Slim'
-)
+             docsdirs=r'D:\WinPython\basedir34\docs.Slim')
+    
