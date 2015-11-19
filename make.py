@@ -795,9 +795,9 @@ cd %WINPYDIR%\Scripts
             os.mkdir(osp.join(self.winpydir, 'settings'))
         self._print_done()
         
-        self.python_name='App'
-        self.python_version='2.7'
-        self.python_fullversion='2.7.10'
+        self.python_name='python'
+        self.python_version='3.4'
+        self.python_fullversion='3.4.3'
         self.distribution=wppm.BasePackage('32')
         self.distribution.architecture=32
         self._create_batch_scripts_initial()
@@ -1038,7 +1038,7 @@ if __name__ == '__main__':
     #         install_options=r'--no-index --pre --trusted-host=None',
     #         find_links=r'D:\Winpython\basedir34\packages.srcreq')
 
-    make_all(99, release_level='', pyver='2.7', rootdir=r'D:\Winpython', verbose=True,
+    make_all(99, release_level='', pyver='3.5', rootdir=r'D:\Winpython', verbose=True,
              archis=(32, ), flavor='Portable',
              requirements=r'D:\Winpython\basedir35\slim_requirements.txt',
              install_options=r'--no-index --pre --trusted-host=None',
