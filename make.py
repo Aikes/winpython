@@ -804,6 +804,8 @@ cd %WINPYDIR%\Scripts
         self._create_batch_scripts()  # which set mingwpy as compiler
         #self._run_complement_batch_scripts("run_required_first.bat")
         self._create_launchers()
+        print('done')
+        exit()
         
         if remove_existing and not self.simulation:
             self._extract_python()
